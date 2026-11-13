@@ -42,7 +42,8 @@ export function isSabpaisaConfigured(): boolean {
 const hmacHex = (data: string, key: string) => createHmac('sha256', key).update(data).digest('hex');
 
 function headers() {
-  return { 'Content-Type': 'application/json', 'X-Api-Key': cfg().apiKey };
+  const c = cfg();
+  return { 'Content-Type': 'application/json', 'X-Api-Key': c.apiKey, 'X-Merchant-Id': c.merchantId };
 }
 
 // ── Create payment ──────────────────────────────────────────────────────────
