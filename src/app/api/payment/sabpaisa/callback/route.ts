@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { enquireTransaction, mapStatus, verifyReturnSignature } from '@/lib/sabpaisa';
 import { applySabpaisaResult } from '@/lib/sabpaisaPayment';
+import { publicUrl } from '@/lib/appUrl';
 
 /**
  * SabPaisa returnUrl. The customer comes back here after paying, with
@@ -12,7 +13,7 @@ import { applySabpaisaResult } from '@/lib/sabpaisaPayment';
  */
 async function handle(req: NextRequest, params: URLSearchParams) {
   const statusUrl = (status: string, txnId = '') => {
-    const u = new URL('/payment/status', req.url);
+    const u = publicUrl(req, '/payment/status');
     u.searchParams.set('status', status);
     if (txnId) u.searchParams.set('txnid', txnId);
     return NextResponse.redirect(u, 303);

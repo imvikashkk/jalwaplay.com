@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { publicUrl } from '@/lib/appUrl';
 import pool from '@/lib/db';
 import { activateSubscription } from '@/lib/activateSubscription';
 import { checkPayinStatus } from '@/lib/gocart';
 
 // Legacy browser-redirect fallback — GoCart PayIn does not redirect the browser
 export async function GET(req: NextRequest) {
-  return NextResponse.redirect(new URL('/subscription', req.url), 303);
+  return NextResponse.redirect(publicUrl(req, '/subscription'), 303);
 }
 
 // GoCart PayIn server-to-server webhook — called once the transaction completes.

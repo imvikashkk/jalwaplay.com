@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { publicUrl } from '@/lib/appUrl';
 import pool from '@/lib/db';
 
 export async function POST(req: NextRequest) {
@@ -18,9 +19,9 @@ export async function POST(req: NextRequest) {
     console.error('payment/failed error:', err);
   }
 
-  return NextResponse.redirect(new URL('/subscription', req.url), 303);
+  return NextResponse.redirect(publicUrl(req, '/subscription'), 303);
 }
 
 export async function GET(req: NextRequest) {
-  return NextResponse.redirect(new URL('/subscription', req.url), 303);
+  return NextResponse.redirect(publicUrl(req, '/subscription'), 303);
 }
